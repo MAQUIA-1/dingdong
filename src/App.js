@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "@fontsource/roboto/400.css";
+import { Container, Box, Card } from "@mui/material";
+import Calendar from "./Calendar";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.body.style = "background: #e7ebf0";
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container maxWidth="lg">
+      <Box mt={"20px"} display={"flex"} justifyContent={"center"}>
+        <Calendar />
+
+        <Box>
+          <Card sx={{ m: "10px", p: "10px" }}>
+            <iframe
+              id="hikorea-web-page"
+              title="hikorea"
+              width="500px"
+              height="800px"
+              frameBorder={0}
+              src="https://www.hikorea.go.kr/info/mobileCheckExprYmdByPassNoR.pt"
+            />
+          </Card>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 
