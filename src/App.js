@@ -9,24 +9,24 @@ function App() {
   }, []);
 
   return (
-    <Container maxWidth="lg">
-      <Box mt={"20px"} display={"flex"} justifyContent={"center"}>
+    <Box mt={"20px"} display={"flex"}>
+      <Box ml={"auto"}>
         <Calendar />
-
-        <Box>
-          <Card sx={{ m: "10px", p: "10px" }}>
-            <iframe
-              id="hikorea-web-page"
-              title="hikorea"
-              width="500px"
-              height="800px"
-              frameBorder={0}
-              src="https://www.hikorea.go.kr/info/mobileCheckExprYmdByPassNoR.pt"
-            />
-          </Card>
-        </Box>
       </Box>
-    </Container>
+
+      <Box mr={"auto"}>
+        <Card sx={{ m: "10px", p: "10px" }}>
+          <iframe
+            id="hikorea-web-page"
+            title="hikorea"
+            width="500px"
+            height="800px"
+            frameBorder={0}
+            src="https://www.hikorea.go.kr/info/mobileCheckExprYmdByPassNoR.pt"
+          />
+        </Card>
+      </Box>
+    </Box>
   );
 }
 

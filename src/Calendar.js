@@ -144,7 +144,7 @@ function Calendar() {
             }}
             defaultValue={age}
           />
-          <Typography sx={{ display: "inline" }}>세 이상 ➡️ </Typography>
+          <Typography sx={{ display: "inline" }}>세 이상 ⮕ </Typography>
 
           <Chip label={ageResult}></Chip>
           <Typography sx={{ display: "inline" }}> 이전 출생</Typography>
@@ -165,7 +165,7 @@ function Calendar() {
               setDiff1(value);
             }}
           />
-          <Typography sx={{ display: "inline" }}> 일 초과? ➡️ </Typography>
+          <Typography sx={{ display: "inline" }}> 일 초과? ⮕ </Typography>
 
           {diff1Result ? (
             <Box display={"inline"}>
@@ -199,7 +199,7 @@ function Calendar() {
               setDiff2(value);
             }}
           />
-          <Typography sx={{ display: "inline" }}> 일 초과? ➡️ </Typography>
+          <Typography sx={{ display: "inline" }}> 일 초과? ⮕ </Typography>
 
           {diff2Result ? (
             <Box display={"inline"}>
@@ -233,7 +233,7 @@ function Calendar() {
               setDiff3(value);
             }}
           />
-          <Typography sx={{ display: "inline" }}> 일 이내? ➡️ </Typography>
+          <Typography sx={{ display: "inline" }}> 일 이내? ⮕ </Typography>
 
           {diff3Result ? (
             <Box display={"inline"}>
