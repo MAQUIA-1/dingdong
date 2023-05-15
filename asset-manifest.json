@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/dingdong/static/css/main.2f487a2b.css",
+    "main.css": "/dingdong/static/css/main.a79caba1.css",
     "main.js": "/dingdong/static/js/main.61efb59c.js",
     "static/media/roboto-all-400-normal.woff": "/dingdong/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
     "static/media/roboto-latin-400-normal.woff2": "/dingdong/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -11,11 +11,11 @@
     "static/media/roboto-vietnamese-400-normal.woff2": "/dingdong/static/media/roboto-vietnamese-400-normal.3230f9b040f3c630e0c3.woff2",
     "static/media/roboto-greek-ext-400-normal.woff2": "/dingdong/static/media/roboto-greek-ext-400-normal.169619821ea93019d1bb.woff2",
     "index.html": "/dingdong/index.html",
-    "main.2f487a2b.css.map": "/dingdong/static/css/main.2f487a2b.css.map",
+    "main.a79caba1.css.map": "/dingdong/static/css/main.a79caba1.css.map",
     "main.61efb59c.js.map": "/dingdong/static/js/main.61efb59c.js.map"
   },
   "entrypoints": [
-    "static/css/main.2f487a2b.css",
+    "static/css/main.a79caba1.css",
     "static/js/main.61efb59c.js"
   ]
 }
