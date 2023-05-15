@@ -169,16 +169,16 @@ function Calendar() {
 
           {diff1Result ? (
             <Box display={"inline"}>
-              <Chip label="초과 O" color="success" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diff1Day}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                ({diff1Day}일 지남)
+                (체류지 변경)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
-              <Chip label="초과 X" color="error" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diff1Day}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                ({diff1Day}일 지남)
+                (체류지 변경)
               </Typography>
             </Box>
           )}
@@ -203,16 +203,16 @@ function Calendar() {
 
           {diff2Result ? (
             <Box display={"inline"}>
-              <Chip label="초과 O" color="success" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diff2Day}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                ({diff2Day}일 지남)
+                (여권변경)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
-              <Chip label="초과 X" color="error" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diff2Day}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                ({diff2Day}일 지남)
+                (여권변경)
               </Typography>
             </Box>
           )}
@@ -238,10 +238,16 @@ function Calendar() {
           {diff3Result ? (
             <Box display={"inline"}>
               <Chip label={`${diff3Day}일 후`} color="success" sx={{ mr: "5px" }}></Chip>
+              <Typography variant="caption" sx={{ display: "inline" }}>
+                (비행기, 근로계약서)
+              </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
               <Chip label={`${diff3Day}일 후`} color="error" sx={{ mr: "5px" }}></Chip>
+              <Typography variant="caption" sx={{ display: "inline" }}>
+                (비행기, 근로계약서)
+              </Typography>
             </Box>
           )}
         </Box>

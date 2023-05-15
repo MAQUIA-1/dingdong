@@ -32,7 +32,9 @@ const Memopad = () => {
           border: "solid #9c9c9c 1px",
           borderRadius: "5px",
           fontSize: `${fontSize}px`,
+          fontFamily: "Roboto, Helvetica, Arial, sans-serif",
         }}
+        spellCheck="false"
         placeholder="Memo..."
       />
       <Box>

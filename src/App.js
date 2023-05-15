@@ -20,7 +20,7 @@ function App() {
             id="hikorea-web-page"
             title="hikorea"
             width="500px"
-            height="800px"
+            height="850px"
             frameBorder={0}
             src="https://www.hikorea.go.kr/info/mobileCheckExprYmdByPassNoR.pt"
           />
