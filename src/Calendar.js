@@ -3,6 +3,7 @@ import Cal from "react-calendar";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { Box, Card, Typography, Input, Chip } from "@mui/material";
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
 import "./calendar.css";
 
@@ -97,7 +98,7 @@ function Calendar() {
     <Box>
       {/* 카드1 */}
       <Card sx={{ m: "10px", p: "20px" }}>
-        <Typography variant="h4">🔔 띵동 데스크탑</Typography>
+        <Typography variant="h4">띵동 데스크탑</Typography>
 
         <Box display={"flex"} mt={"10px"}>
           <Box>
@@ -133,18 +134,20 @@ function Calendar() {
       <Card sx={{ m: "10px", p: "20px" }}>
         {/* 70세 이상? */}
         <Box>
-          <Input
-            type="number"
-            inputProps={{ min: 0 }}
-            size="small"
-            sx={{ width: "35px" }}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setAge(value);
-            }}
-            defaultValue={age}
-          />
-          <Typography sx={{ display: "inline" }}>세 이상 ⮕ </Typography>
+          <Box width={"120px"} display={"inline-block"}>
+            <Input
+              type="number"
+              inputProps={{ min: 0 }}
+              size="small"
+              sx={{ width: "35px" }}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setAge(value);
+              }}
+              defaultValue={age}
+            />
+            <Typography sx={{ display: "inline" }}>세 이상?</Typography>
+          </Box>
 
           <Chip label={ageResult}></Chip>
           <Typography sx={{ display: "inline" }}> 이전 출생</Typography>
@@ -154,31 +157,33 @@ function Calendar() {
 
         {/* 15일 지남? */}
         <Box>
-          <Input
-            type="number"
-            inputProps={{ min: 0 }}
-            size="small"
-            sx={{ width: "35px" }}
-            defaultValue={diff1}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setDiff1(value);
-            }}
-          />
-          <Typography sx={{ display: "inline" }}> 일 초과? ⮕ </Typography>
+          <Box width={"120px"} display={"inline-block"}>
+            <Input
+              type="number"
+              inputProps={{ min: 0 }}
+              size="small"
+              sx={{ width: "35px" }}
+              defaultValue={diff1}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setDiff1(value);
+              }}
+            />
+            <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
+          </Box>
 
           {diff1Result ? (
             <Box display={"inline"}>
               <Chip label={`${diff1Day}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                (체류지 변경)
+                (체류지변경)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
               <Chip label={`${diff1Day}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
-                (체류지 변경)
+                (체류지변경)
               </Typography>
             </Box>
           )}
@@ -188,18 +193,20 @@ function Calendar() {
 
         {/* 45일 지남? */}
         <Box>
-          <Input
-            type="number"
-            inputProps={{ min: 0 }}
-            size="small"
-            sx={{ width: "35px" }}
-            defaultValue={diff2}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setDiff2(value);
-            }}
-          />
-          <Typography sx={{ display: "inline" }}> 일 초과? ⮕ </Typography>
+          <Box width={"120px"} display={"inline-block"}>
+            <Input
+              type="number"
+              inputProps={{ min: 0 }}
+              size="small"
+              sx={{ width: "35px" }}
+              defaultValue={diff2}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setDiff2(value);
+              }}
+            />
+            <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
+          </Box>
 
           {diff2Result ? (
             <Box display={"inline"}>
@@ -221,19 +228,20 @@ function Calendar() {
         <Box m={"20px"}></Box>
 
         <Box>
-          {/* <Typography>선택일기준 오늘이 7일 안임?</Typography> */}
-          <Input
-            type="number"
-            inputProps={{ min: 0 }}
-            size="small"
-            sx={{ width: "35px" }}
-            defaultValue={diff3}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-              setDiff3(value);
-            }}
-          />
-          <Typography sx={{ display: "inline" }}> 일 이내? ⮕ </Typography>
+          <Box width={"120px"} display={"inline-block"}>
+            <Input
+              type="number"
+              inputProps={{ min: 0 }}
+              size="small"
+              sx={{ width: "35px" }}
+              defaultValue={diff3}
+              onChange={(e) => {
+                const value = Number(e.target.value);
+                setDiff3(value);
+              }}
+            />
+            <Typography sx={{ display: "inline" }}> 일 이내?</Typography>
+          </Box>
 
           {diff3Result ? (
             <Box display={"inline"}>

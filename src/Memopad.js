@@ -3,11 +3,15 @@ import { Box, Button, ButtonGroup } from "@mui/material";
 
 const Memopad = () => {
   const [memo, setMemo] = useState(localStorage.getItem("memo") || "");
-  const [fontSize, setFontSize] = useState(15);
+  const [fontSize, setFontSize] = useState(parseInt(localStorage.getItem("fontSize")) || 18);
 
   useEffect(() => {
     localStorage.setItem("memo", memo);
   }, [memo]);
+
+  useEffect(() => {
+    localStorage.setItem("fontSize", fontSize.toString());
+  }, [fontSize]);
 
   const handleChange = (event) => {
     setMemo(event.target.value);
@@ -37,7 +41,7 @@ const Memopad = () => {
         spellCheck="false"
         placeholder="Memo..."
       />
-      <Box>
+      <Box textAlign={"right"}>
         <ButtonGroup>
           <Button onClick={increaseFontSize} size="small">
             +
