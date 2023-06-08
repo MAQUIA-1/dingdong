@@ -3,7 +3,6 @@ import Cal from "react-calendar";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { Box, Card, Typography, Input, Chip } from "@mui/material";
-import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
 import "./calendar.css";
 
@@ -13,11 +12,11 @@ import Memopad from "./Memopad";
 function Calendar() {
   dayjs.locale("ko");
   const [value, onChange] = useState(new Date()); // react-calendar 시각
-  const [now, setNow] = useState(dayjs()); // dayjs 현재시각
+  const [currentTime, setCurrentTime] = useState(dayjs()); // dayjs 현재시각
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setNow(dayjs());
+      setCurrentTime(dayjs());
     }, 1000);
 
     return () => {
@@ -25,80 +24,71 @@ function Calendar() {
     };
   }, []);
 
-  //-----------------------------------------------------------------------------
-  const [age, setAge] = useState(70);
+  //-----------------------------------[나이 계산]------------------------------------------
+  const [inputAge, setInputAge] = useState(70);
   const [ageResult, setAgeResult] = useState(0);
 
   useEffect(() => {
-    const seventyYearsAgo = now.subtract(age, "year").format("YYYY-MM-DD");
+    const seventyYearsAgo = currentTime.subtract(inputAge, "year").format("YYYY-MM-DD");
     setAgeResult(seventyYearsAgo);
-  }, [age]);
+  }, [inputAge]);
 
-  //-----------------------------------------------------------------------------
-  const [diff1, setDiff1] = useState(15);
-  const [diff1Result, setDiff1Result] = useState(false);
-  const [diff1Day, setDiff1Day] = useState(0);
+  //--------------------------------------[날짜 차이]------------------------------------------
+  const [inputDay1, setInputDay1] = useState(15); // 체류지변경
+  const [inputDay2, setInputDay2] = useState(45); // 여권변경
+  const [inputDay3, setInputDay3] = useState(7); // 비행기, 근로계약서
 
-  useEffect(() => {
-    console.log(dayjs(value));
-    const today = now.startOf("day");
-    const selectDay = dayjs(value);
-    const userdiff = Number(diff1);
+  const [diffValue, setDiffValue] = useState(0);
+  const [invertDiffValue, setInvertDiffValue] = useState(0);
 
-    const 차이 = today.diff(selectDay, "day");
-    setDiff1Day(차이);
-
-    if (차이 >= userdiff) {
-      setDiff1Result(true);
-    } else {
-      setDiff1Result(false);
-    }
-  }, [diff1, value]);
-  //-----------------------------------------------------------------------------
-
-  const [diff2, setDiff2] = useState(45);
-  const [diff2Result, setDiff2Result] = useState(false);
-  const [diff2Day, setDiff2Day] = useState(0);
+  const [day1Result, setDay1Result] = useState(false);
+  const [day2Result, setDay2Result] = useState(false);
+  const [day3Result, setDay3Result] = useState(false);
 
   useEffect(() => {
-    const today = now.startOf("day");
-    const selectDay = dayjs(value);
-    const userdiff = Number(diff2);
+    // console.log(dayjs(value));
+    const today = currentTime.startOf("day"); // 오늘
+    const selectedDay = dayjs(value); // 캘린더 선택일
 
-    const 차이 = today.diff(selectDay, "day");
-    setDiff2Day(차이);
+    const diffVal = today.diff(selectedDay, "day"); // 차이값
+    const invertDiffVal = Number(diffVal) * -1;
 
-    if (차이 >= userdiff) {
-      setDiff2Result(true);
+    setDiffValue(diffVal);
+    setInvertDiffValue(invertDiffVal);
+
+    if (diffVal >= Number(inputDay1)) {
+      setDay1Result(true);
     } else {
-      setDiff2Result(false);
+      setDay1Result(false);
     }
-  }, [diff2, value]);
-  //-----------------------------------------------------------------------------
-  const [diff3, setDiff3] = useState(7);
-  const [diff3Result, setDiff3Result] = useState(false);
-  const [diff3Day, setDiff3Day] = useState(0);
 
-  useEffect(() => {
-    const today = now.startOf("day");
-    const selectDay = dayjs(value);
-    const userdiff = Number(diff3);
-
-    const 차이 = selectDay.diff(today, "day");
-    setDiff3Day(차이);
-
-    if (차이 <= userdiff && 차이 >= 0) {
-      setDiff3Result(true);
+    if (diffVal >= Number(inputDay2)) {
+      setDay2Result(true);
     } else {
-      setDiff3Result(false);
+      setDay2Result(false);
     }
-  }, [diff3, value]);
-  //-----------------------------------------------------------------------------
+
+    if (invertDiffVal <= Number(inputDay3) && invertDiffVal >= 0) {
+      setDay3Result(true);
+    } else {
+      setDay3Result(false);
+    }
+  }, [value, inputDay1, inputDay2, inputDay3]);
+
+  //==============================================================================
+
   return (
     <Box>
       {/* 카드1 */}
       <Card sx={{ m: "10px", p: "20px" }}>
-        <Typography variant="h4">띵동 데스크탑</Typography>
+        <Box display={"flex"}>
+          <Typography variant="h4">띵동 데스크탑</Typography>
+          <Box sx={{ mt: "auto", ml: "5px" }}>
+            <a href="https://github.com/MAQUIA-1/dingdong">
+              <Typography variant="caption">GitHub</Typography>
+            </a>
+          </Box>
+        </Box>
 
         <Box display={"flex"} mt={"10px"}>
           <Box>
@@ -112,9 +102,9 @@ function Calendar() {
 
             {/* 현재시각 */}
             <Box mt={"25px"}>
-              <Typography variant="h3">{now.format("A h:mm")}</Typography>
+              <Typography variant="h3">{currentTime.format("A h:mm")}</Typography>
               <Typography variant="h6" color={"gray"}>
-                {now.format("YYYY년 MM월 DD일, ddd요일")}
+                {currentTime.format("YYYY년 MM월 DD일, ddd요일")}
               </Typography>
             </Box>
           </Box>
@@ -142,9 +132,9 @@ function Calendar() {
               sx={{ width: "35px" }}
               onChange={(e) => {
                 const value = Number(e.target.value);
-                setAge(value);
+                setInputAge(value);
               }}
-              defaultValue={age}
+              defaultValue={inputAge}
             />
             <Typography sx={{ display: "inline" }}>세 이상?</Typography>
           </Box>
@@ -163,25 +153,25 @@ function Calendar() {
               inputProps={{ min: 0 }}
               size="small"
               sx={{ width: "35px" }}
-              defaultValue={diff1}
+              defaultValue={inputDay1}
               onChange={(e) => {
                 const value = Number(e.target.value);
-                setDiff1(value);
+                setInputDay1(value);
               }}
             />
             <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
           </Box>
 
-          {diff1Result ? (
+          {day1Result ? (
             <Box display={"inline"}>
-              <Chip label={`${diff1Day}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (체류지변경)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
-              <Chip label={`${diff1Day}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (체류지변경)
               </Typography>
@@ -199,25 +189,25 @@ function Calendar() {
               inputProps={{ min: 0 }}
               size="small"
               sx={{ width: "35px" }}
-              defaultValue={diff2}
+              defaultValue={inputDay2}
               onChange={(e) => {
                 const value = Number(e.target.value);
-                setDiff2(value);
+                setInputDay2(value);
               }}
             />
             <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
           </Box>
 
-          {diff2Result ? (
+          {day2Result ? (
             <Box display={"inline"}>
-              <Chip label={`${diff2Day}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (여권변경)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
-              <Chip label={`${diff2Day}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (여권변경)
               </Typography>
@@ -234,25 +224,25 @@ function Calendar() {
               inputProps={{ min: 0 }}
               size="small"
               sx={{ width: "35px" }}
-              defaultValue={diff3}
+              defaultValue={inputDay3}
               onChange={(e) => {
                 const value = Number(e.target.value);
-                setDiff3(value);
+                setInputDay3(value);
               }}
             />
             <Typography sx={{ display: "inline" }}> 일 이내?</Typography>
           </Box>
 
-          {diff3Result ? (
+          {day3Result ? (
             <Box display={"inline"}>
-              <Chip label={`${diff3Day}일 후`} color="success" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${invertDiffValue}일 후`} color="success" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (비행기, 근로계약서)
               </Typography>
             </Box>
           ) : (
             <Box display={"inline"}>
-              <Chip label={`${diff3Day}일 후`} color="error" sx={{ mr: "5px" }}></Chip>
+              <Chip label={`${invertDiffValue}일 후`} color="error" sx={{ mr: "5px" }}></Chip>
               <Typography variant="caption" sx={{ display: "inline" }}>
                 (비행기, 근로계약서)
               </Typography>
