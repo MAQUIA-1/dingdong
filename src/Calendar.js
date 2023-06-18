@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import Cal from "react-calendar";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import { Box, Card, Typography, Input, Chip } from "@mui/material";
+import { Box, Card, Typography, Input, Chip, IconButton, Tooltip } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import "./calendar.css";
 
 import Months from "./Months";
 import Memopad from "./Memopad";
+import Closing from "./Closing";
 
 function Calendar() {
   dayjs.locale("ko");
@@ -122,134 +124,149 @@ function Calendar() {
 
       {/* 카드2 */}
       <Card sx={{ m: "10px", p: "20px" }}>
-        {/* 70세 이상? */}
-        <Box>
-          <Box width={"120px"} display={"inline-block"}>
-            <Input
-              type="number"
-              inputProps={{ min: 0 }}
-              size="small"
-              sx={{ width: "35px" }}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setInputAge(value);
-              }}
-              defaultValue={inputAge}
-            />
-            <Typography sx={{ display: "inline" }}>세 이상?</Typography>
+        <Box display={"flex"}>
+          <Box>
+            {/* 70세 이상? */}
+            <Box>
+              <Box width={"120px"} display={"inline-block"}>
+                <Input
+                  type="number"
+                  inputProps={{ min: 0 }}
+                  size="small"
+                  sx={{ width: "35px" }}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setInputAge(value);
+                  }}
+                  defaultValue={inputAge}
+                />
+                <Typography sx={{ display: "inline" }}>세 이상?</Typography>
+              </Box>
+
+              <Chip label={ageResult}></Chip>
+              <Typography sx={{ display: "inline" }}> 이전 출생</Typography>
+            </Box>
+
+            <Box m={"20px"}></Box>
+
+            {/* 15일 지남? */}
+            <Box>
+              <Box width={"120px"} display={"inline-block"}>
+                <Input
+                  type="number"
+                  inputProps={{ min: 0 }}
+                  size="small"
+                  sx={{ width: "35px" }}
+                  defaultValue={inputDay1}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setInputDay1(value);
+                  }}
+                />
+                <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
+              </Box>
+
+              {day1Result ? (
+                <Box display={"inline"}>
+                  <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (체류지변경)
+                  </Typography>
+                </Box>
+              ) : (
+                <Box display={"inline"}>
+                  <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (체류지변경)
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+
+            <Box m={"20px"}></Box>
+
+            {/* 45일 지남? */}
+            <Box>
+              <Box width={"120px"} display={"inline-block"}>
+                <Input
+                  type="number"
+                  inputProps={{ min: 0 }}
+                  size="small"
+                  sx={{ width: "35px" }}
+                  defaultValue={inputDay2}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setInputDay2(value);
+                  }}
+                />
+                <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
+              </Box>
+
+              {day2Result ? (
+                <Box display={"inline"}>
+                  <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (여권변경)
+                  </Typography>
+                </Box>
+              ) : (
+                <Box display={"inline"}>
+                  <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (여권변경)
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+
+            <Box m={"20px"}></Box>
+
+            <Box>
+              <Box width={"120px"} display={"inline-block"}>
+                <Input
+                  type="number"
+                  inputProps={{ min: 0 }}
+                  size="small"
+                  sx={{ width: "35px" }}
+                  defaultValue={inputDay3}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    setInputDay3(value);
+                  }}
+                />
+                <Typography sx={{ display: "inline" }}> 일 이내?</Typography>
+              </Box>
+
+              {day3Result ? (
+                <Box display={"inline"}>
+                  <Chip label={`${invertDiffValue}일 후`} color="success" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (비행기, 근로계약서)
+                  </Typography>
+                </Box>
+              ) : (
+                <Box display={"inline"}>
+                  <Chip label={`${invertDiffValue}일 후`} color="error" sx={{ mr: "5px" }}></Chip>
+                  <Typography variant="caption" sx={{ display: "inline" }}>
+                    (비행기, 근로계약서)
+                  </Typography>
+                </Box>
+              )}
+            </Box>
           </Box>
 
-          <Chip label={ageResult}></Chip>
-          <Typography sx={{ display: "inline" }}> 이전 출생</Typography>
-        </Box>
-
-        <Box m={"20px"}></Box>
-
-        {/* 15일 지남? */}
-        <Box>
-          <Box width={"120px"} display={"inline-block"}>
-            <Input
-              type="number"
-              inputProps={{ min: 0 }}
-              size="small"
-              sx={{ width: "35px" }}
-              defaultValue={inputDay1}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setInputDay1(value);
-              }}
-            />
-            <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
+          {/* 도움말 */}
+          <Box ml={"auto"}>
+            <IconButton sx={{ p: "0px" }}>
+              <Tooltip placement="top" arrow title="캘린더에서 선택된 날짜 기준으로 각종 일수 계산">
+                <InfoOutlinedIcon sx={{ color: "gray" }} />
+              </Tooltip>
+            </IconButton>
           </Box>
-
-          {day1Result ? (
-            <Box display={"inline"}>
-              <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (체류지변경)
-              </Typography>
-            </Box>
-          ) : (
-            <Box display={"inline"}>
-              <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (체류지변경)
-              </Typography>
-            </Box>
-          )}
-        </Box>
-
-        <Box m={"20px"}></Box>
-
-        {/* 45일 지남? */}
-        <Box>
-          <Box width={"120px"} display={"inline-block"}>
-            <Input
-              type="number"
-              inputProps={{ min: 0 }}
-              size="small"
-              sx={{ width: "35px" }}
-              defaultValue={inputDay2}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setInputDay2(value);
-              }}
-            />
-            <Typography sx={{ display: "inline" }}> 일 초과?</Typography>
-          </Box>
-
-          {day2Result ? (
-            <Box display={"inline"}>
-              <Chip label={`${diffValue}일 지남`} color="success" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (여권변경)
-              </Typography>
-            </Box>
-          ) : (
-            <Box display={"inline"}>
-              <Chip label={`${diffValue}일 지남`} color="error" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (여권변경)
-              </Typography>
-            </Box>
-          )}
-        </Box>
-
-        <Box m={"20px"}></Box>
-
-        <Box>
-          <Box width={"120px"} display={"inline-block"}>
-            <Input
-              type="number"
-              inputProps={{ min: 0 }}
-              size="small"
-              sx={{ width: "35px" }}
-              defaultValue={inputDay3}
-              onChange={(e) => {
-                const value = Number(e.target.value);
-                setInputDay3(value);
-              }}
-            />
-            <Typography sx={{ display: "inline" }}> 일 이내?</Typography>
-          </Box>
-
-          {day3Result ? (
-            <Box display={"inline"}>
-              <Chip label={`${invertDiffValue}일 후`} color="success" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (비행기, 근로계약서)
-              </Typography>
-            </Box>
-          ) : (
-            <Box display={"inline"}>
-              <Chip label={`${invertDiffValue}일 후`} color="error" sx={{ mr: "5px" }}></Chip>
-              <Typography variant="caption" sx={{ display: "inline" }}>
-                (비행기, 근로계약서)
-              </Typography>
-            </Box>
-          )}
         </Box>
       </Card>
+
+      <Closing />
 
       {/* 메모장 */}
       <Card sx={{ m: "10px", p: "20px" }}>
